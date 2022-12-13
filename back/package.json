@@ -3,6 +3,7 @@
   "version": "1.0.0",
   "main": "src/server.ts",
   "scripts": {
+    "start": "pm2 start ./build/server.js --watch --no-daemon",
     "build": "tsc",
     "dev": "tsnd --exit-child src/server.ts"
   },
