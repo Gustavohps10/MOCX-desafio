@@ -1,0 +1,8 @@
+{
+  "name": "MOCX-desafio",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": "https://github.com/Gustavohps10/MOCX-desafio.git",
+  "author": "Gustavo Henrique",
+  "license": "MIT"
+}
