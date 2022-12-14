@@ -13,12 +13,45 @@ import TextField from '@mui/material/TextField';
 
 import React from "react";
 
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+
 export default function Root() {
     const [birthDate, setBirthDate] = React.useState<Dayjs | null>(null);
 
+    function handleSubmit() {
+        console.log("click");
+
+        toast.success("Usuário cadastrado com sucesso", {
+            position: toast.POSITION.TOP_CENTER
+        })
+
+        toast.error('Ocorreu um erro', {
+            position: "top-center",
+            autoClose: 5000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: "light",
+        })
+    }
     return (
         <>
             <Header />
+            <ToastContainer
+                position="top-center"
+                autoClose={5000}
+                hideProgressBar={false}
+                newestOnTop={false}
+                closeOnClick
+                rtl={false}
+                pauseOnFocusLoss
+                draggable
+                pauseOnHover
+                theme="light"
+            />
             <Card className="max-w-lg my-5 right-0 relative mx-auto">
                 <form className="flex flex-col gap-4">
                     <div>
@@ -64,7 +97,7 @@ export default function Root() {
                         </LocalizationProvider>
                     </div>
 
-                    <Button type="submit">
+                    <Button type="submit" onClick={handleSubmit}>
                         Cadastrar
                     </Button>
                 </form>
