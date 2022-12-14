@@ -1,5 +1,6 @@
 import { Navbar } from "flowbite-react";
 import { Button } from "flowbite-react/lib/esm/components";
+import { Link } from "react-router-dom";
 
 export default function Header() {
     return (
@@ -25,19 +26,18 @@ export default function Header() {
                 <Navbar.Toggle />
             </div>
             <Navbar.Collapse>
-                <Navbar.Link
-                    href="/"
-                    active={true}
+                <Link
+                    to="/"
                     className="text-base"
                 >
                     Cadastro
-                </Navbar.Link>
-                <Navbar.Link 
-                    href="/navbars"
+                </Link>
+                <Link 
+                    to="/users"
                     className="text-base"
                 >
                     Usuários
-                </Navbar.Link>  
+                </Link>  
             </Navbar.Collapse>
         </Navbar>
     )
