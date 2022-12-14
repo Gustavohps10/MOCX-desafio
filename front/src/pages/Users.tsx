@@ -6,6 +6,7 @@ import { Link } from "react-router-dom";
 import React, { useEffect, useState } from "react";
 import {FaUsers} from "react-icons/fa"
 import axios, {isCancel, AxiosError} from 'axios';
+import { toast, ToastContainer } from "react-toastify";
 
 type User = {
     id: string,
@@ -17,6 +18,7 @@ type User = {
 export default function Users() {
     const [modalVisible, setModalVisible] = useState(false)
     const [users, setUsers] = useState<User[]>([])
+    const [userId, setUserId] = useState<string>("")
 
     useEffect(()=>{
         axios.get('http://localhost:3000/users')
@@ -31,11 +33,55 @@ export default function Users() {
             // always executed
         });
     }, [])
+    
+    function handleUserSelection(id: string) { 
+        setUserId(id)
+        setModalVisible(true)
+    }
 
+    function handleUserDeleteConfirmation() {
+        axios({
+            method: 'delete',
+            url: 'http://localhost:3000/users/' + userId,
+        }).then(function (response) {
+            toast.success("Usuário excluido com sucesso", {
+                position: toast.POSITION.TOP_CENTER
+            })
+
+            setUsers(users.filter((data) => data.id !== userId))
+            
+        }).catch(function (error) { 
+            toast.error("Ocorreu um erro inesperado", {
+                position: "top-center",
+                autoClose: 5000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                theme: "light",
+            })
+        })
+
+        setModalVisible(false)
+    }
 
     return (
         <>
             <Header />
+
+            <ToastContainer
+                position="top-center"
+                autoClose={5000}
+                hideProgressBar={false}
+                newestOnTop={false}
+                closeOnClick
+                rtl={false}
+                pauseOnFocusLoss
+                draggable
+                pauseOnHover
+                theme="light"
+            />
 
             <h1 className="my-10 text-3xl flex items-center justify-center gap-4 font-bold text-gray-900">
                 <FaUsers fill="rgba(17,24,39)"/>
@@ -64,7 +110,7 @@ export default function Users() {
                                             </Dropdown.Item>
                                             <Dropdown.Item>
                                                 <button
-                                                    onClick={()=>setModalVisible(true)}
+                                                    onClick={()=>handleUserSelection(user.id)}
                                                     className="block py-2 px-4 text-sm text-red-600 hover:bg-gray-100 dark:text-gray-200 dark:hover:bg-gray-600 dark:hover:text-white"
                                                 >
                                                     Deletar
@@ -113,8 +159,7 @@ export default function Users() {
                             <div className="flex justify-center gap-4">
                                 <Button
                                     color="failure"
-                                    onClick={()=>setModalVisible(false)}
-                                >
+                                    onClick={handleUserDeleteConfirmation}                               >
                                     Sim, excluir
                                 </Button>
                                 <Button
