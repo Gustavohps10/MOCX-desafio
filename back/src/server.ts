@@ -18,7 +18,7 @@ app.get('/users', async (request, response) => {
     }
 })
 
-app.post('/users',async (request, response) => {
+app.post('/users', async (request, response) => {
     const body = request.body
 
     try {
@@ -37,6 +37,28 @@ app.post('/users',async (request, response) => {
         })
     }
     
+})
+
+app.put('/users/:id',async (request, response) => {
+    const id = request.params.id
+    const body = request.body
+
+    try {
+        const updatedUser = await prisma.user.update({
+            where: {
+              id: id,
+            },
+            data: {
+              name: body.name,
+              birthDate: body.birthDate
+            },
+        })
+        return response.status(200).json(updatedUser)
+    } catch (error) {
+        return response.status(500).json({
+            error: "Ocorreu um erro, tente novamente"
+        })
+    }    
 })
 
 app.listen(3000, ()=>{console.log("Server running at http://localhost:3000");
