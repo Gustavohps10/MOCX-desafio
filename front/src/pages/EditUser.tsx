@@ -12,6 +12,7 @@ import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 import TextField from '@mui/material/TextField';
 
 import React from "react";
+import {FaUserEdit} from "react-icons/fa"
 
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
@@ -38,6 +39,7 @@ export default function Root() {
     return (
         <>
             <Header />
+            
             <ToastContainer
                 position="top-center"
                 autoClose={5000}
@@ -50,6 +52,11 @@ export default function Root() {
                 pauseOnHover
                 theme="light"
             />
+
+            <h1 className="my-10 text-3xl flex items-center justify-center gap-4 font-bold text-gray-900">
+                <FaUserEdit fill="rgba(17,24,39)"/>
+                Editar Usuário
+            </h1>
             <Card className="max-w-lg my-5 right-0 relative mx-auto">
                 <form className="flex flex-col gap-4">
                     <div>

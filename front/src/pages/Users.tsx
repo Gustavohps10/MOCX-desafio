@@ -4,6 +4,7 @@ import { HiOutlineExclamationCircle } from "react-icons/hi"
 import UserIconImage from "../assets/images/user-icon.jpg"
 import { Link } from "react-router-dom";
 import React, { useState } from "react";
+import {FaUsers} from "react-icons/fa"
 
 export default function Users() {
     const fakeUsers = [
@@ -23,7 +24,13 @@ export default function Users() {
     return (
         <>
             <Header />
-            <div id="users" className="grid grid-cols-5 gap-4 p-20 m-2">
+
+            <h1 className="my-10 text-3xl flex items-center justify-center gap-4 font-bold text-gray-900">
+                <FaUsers fill="rgba(17,24,39)"/>
+                Usuarios Cadastrados
+            </h1>
+            
+            <div id="users" className="grid grid-cols-5 gap-4 px-20">
                 {
                     fakeUsers.map((user) => {
                         return (

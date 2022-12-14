@@ -2,14 +2,14 @@ import React from 'react'
 import ReactDOM from 'react-dom/client'
 import { createBrowserRouter, RouterProvider } from "react-router-dom"
 
-import Root from './pages/Root'
+import Home from './pages/Home'
 import Users from './pages/Users';
 import EditUser from './pages/EditUser'
 
 const router = createBrowserRouter([
   {
     path: "/",
-    element: <Root />,
+    element: <Home />,
   },
   {
     path: "/users",
