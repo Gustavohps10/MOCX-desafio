@@ -61,5 +61,23 @@ app.put('/users/:id',async (request, response) => {
     }    
 })
 
+app.delete('/users/:id', async (request, response) => {
+    const id = request.params.id
+
+    try {
+        await prisma.user.delete({
+            where: {
+                id: id
+            }
+        })
+
+        return response.status(204).json()
+    } catch (error) {
+        return response.status(500).json({
+            error: "Ocorreu um erro, tente novamente"
+        })
+    }
+})
+
 app.listen(3000, ()=>{console.log("Server running at http://localhost:3000");
 })
