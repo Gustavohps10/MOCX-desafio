@@ -3,22 +3,34 @@ import { Button, Card, Dropdown, Modal } from "flowbite-react/lib/esm/components
 import { HiOutlineExclamationCircle } from "react-icons/hi"
 import UserIconImage from "../assets/images/user-icon.jpg"
 import { Link } from "react-router-dom";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import {FaUsers} from "react-icons/fa"
+import axios, {isCancel, AxiosError} from 'axios';
+
+type User = {
+    id: string,
+    name: string,
+    cpf: string,
+    birthDate: Date
+}
 
 export default function Users() {
-    const fakeUsers = [
-        { id: "838092024609", name: "Name 1", cpf: "23423432422", birthDate: "2004-10-01T00:00:00.000" },
-        { id: "831092023409", name: "Name 2", cpf: "23423432426", birthDate: "2004-12-01T00:00:00.000" },
-        { id: "034092023450", name: "Name 3", cpf: "23423432427", birthDate: "2004-12-01T00:00:00.000" },
-        { id: "434092023409", name: "Name 4", cpf: "23423432428", birthDate: "2004-12-01T00:00:00.000" },
-        { id: "334092023409", name: "Name da Silva Sauro", cpf: "23423432422", birthDate: "2004-10-01T00:00:00.000" },
-        { id: "734092023409", name: "Name 2", cpf: "23423432426", birthDate: "2004-12-01T00:00:00.000" },
-        { id: "839052023409", name: "Name 3", cpf: "23423432427", birthDate: "2004-12-01T00:00:00.000" },
-        { id: "83409u023409", name: "Name 4", cpf: "23423432428", birthDate: "2004-12-01T00:00:00.000" }
-    ]
-
     const [modalVisible, setModalVisible] = useState(false)
+    const [users, setUsers] = useState<User[]>([])
+
+    useEffect(()=>{
+        axios.get('http://localhost:3000/users')
+        .then(function (response: any) {
+            setUsers(response.data)
+        })
+        .catch(function (error) {
+            // handle error
+        console.log(error);
+        })
+        .finally(function () {
+            // always executed
+        });
+    }, [])
 
 
     return (
@@ -32,7 +44,7 @@ export default function Users() {
             
             <div id="users" className="grid grid-cols-5 gap-4 px-20">
                 {
-                    fakeUsers.map((user) => {
+                    users.map((user) => {
                         return (
 
                             <div key={user.id} className="max-w-sm">

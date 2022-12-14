@@ -1,8 +1,10 @@
 import express, { json } from "express"
 import { PrismaClient, Prisma } from "@prisma/client"
 import { cpf as cpfValidator} from "cpf-cnpj-validator"
+import cors from "cors"
  
 const app = express()
+app.use(cors())
 app.use(json())
 
 const prisma = new PrismaClient({

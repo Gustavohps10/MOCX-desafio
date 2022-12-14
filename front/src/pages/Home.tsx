@@ -11,30 +11,63 @@ import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 
 import TextField from '@mui/material/TextField';
 
-import React from "react";
+import React, { FormEvent, useState } from "react";
 import {FiUserPlus} from "react-icons/fi"
 
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import axios from "axios";
 
-export default function Root() {
-    const [birthDate, setBirthDate] = React.useState<Dayjs | null>(null);
+export default function Home() {
+    const [birthDate, setBirthDate] = useState<Dayjs | null>(null);
+    const [name, setName] = useState<string>("")
+    const [cpf, setCPF] = useState<string>("")
 
-    function handleSubmit() {
-        toast.success("Usuário cadastrado com sucesso", {
-            position: toast.POSITION.TOP_CENTER
+    function handleSubmit(e: FormEvent) {
+        e.preventDefault()
+
+        if(!birthDate?.isValid()){
+            toast.error('Selecione uma data válida', {
+                position: "top-center",
+                autoClose: 5000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                theme: "light",
+            })
+            return
+        }
+        
+
+        axios({
+            method: 'post',
+            url: 'http://localhost:3000/users',
+            data: {
+                name: name,
+                cpf: cpf,
+                birthDate: birthDate?.toDate().toISOString()
+            }
+        }).then(function (response) {
+            console.log(response.data.error);
+            
+            toast.success("Usuário cadastrado com sucesso", {
+                position: toast.POSITION.TOP_CENTER
+            })
+        }).catch(function (error) {
+            toast.error(error.response.data.error, {
+                position: "top-center",
+                autoClose: 5000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                theme: "light",
+            })
         })
-
-        toast.error('Ocorreu um erro', {
-            position: "top-center",
-            autoClose: 5000,
-            hideProgressBar: false,
-            closeOnClick: true,
-            pauseOnHover: true,
-            draggable: true,
-            progress: undefined,
-            theme: "light",
-        })
+     
     }
     return (
         <>
@@ -58,7 +91,10 @@ export default function Root() {
                 Cadastrar Usuário
             </h1>
             <Card className="max-w-lg my-5 right-0 relative mx-auto">
-                <form className="flex flex-col gap-4">
+                <form
+                    onSubmit={(e)=>handleSubmit(e)}
+                    className="flex flex-col gap-4"
+                >
                     <div>
                         <div className="mb-2 block">
                             <Label
@@ -70,8 +106,9 @@ export default function Root() {
                             id="name"
                             type="text"
                             placeholder="Joãozinho da Silva"
-                            required={true}
                             shadow={true}
+                            value={name}
+                            onChange={(e)=>setName(e.target.value)}
                         />
                     </div>
                     <div>
@@ -85,8 +122,9 @@ export default function Root() {
                             id="cpf"
                             type="text"
                             placeholder="123.456.789-10"
-                            required={true}
                             shadow={true}
+                            value={cpf}
+                            onChange={(e)=>setCPF(e.target.value)}
                         />
                     </div>
                     <div>
@@ -108,7 +146,7 @@ export default function Root() {
                         </LocalizationProvider>
                     </div>
 
-                    <Button type="submit" onClick={handleSubmit}>
+                    <Button type="submit">
                         Cadastrar
                     </Button>
                 </form>
