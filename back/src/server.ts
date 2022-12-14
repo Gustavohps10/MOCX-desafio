@@ -112,9 +112,9 @@ app.put('/users/:id', async (request, response) => {
             },
         })
         return response.status(200).json(updatedUser)
-    } catch (error) {
+    } catch (error: any) {
         return response.status(500).json({
-            error: "Ocorreu um erro, tente novamente"
+            error: error.message
         })
     }    
 })

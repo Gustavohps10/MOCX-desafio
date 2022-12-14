@@ -11,31 +11,76 @@ import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 
 import TextField from '@mui/material/TextField';
 
-import React from "react";
+import React, { FormEvent, useEffect, useState } from "react";
 import {FaUserEdit} from "react-icons/fa"
 
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import axios from "axios";
+import { useParams } from "react-router-dom";
 
 export default function Root() {
-    const [birthDate, setBirthDate] = React.useState<Dayjs | null>(null);
+    const [birthDate, setBirthDate] = useState<Dayjs | null>(null);
+    const [name, setName] = useState<string>("")
+    const { id } = useParams()
 
-    function handleSubmit() {
-        toast.success("Usuário editado com sucesso", {
-            position: toast.POSITION.TOP_CENTER
+    useEffect(()=>{
+        axios.get('http://localhost:3000/users/' + id)
+        .then(function (response: any) { 
+            setName(response.data.name)
+            setBirthDate(dayjs(response.data.birthDate))
         })
+        .catch(function (error) {
+            // handle error
+        })
+        .finally(function () {
+            // always executed
+        });
+    }, [])
 
-        toast.error('Ocorreu um erro', {
-            position: "top-center",
-            autoClose: 5000,
-            hideProgressBar: false,
-            closeOnClick: true,
-            pauseOnHover: true,
-            draggable: true,
-            progress: undefined,
-            theme: "light",
+    function handleSubmit(e: FormEvent) {
+        e.preventDefault()
+        
+        if(!birthDate?.isValid()){
+            toast.error('Selecione uma data válida', {
+                position: "top-center",
+                autoClose: 5000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                theme: "light",
+            })
+            return
+        }
+        
+        axios({
+            method: 'put',
+            url: 'http://localhost:3000/users/' + id,
+            data: {
+                name: name,
+                birthDate: birthDate?.toDate().toISOString()
+            }
+        }).then(function (response) {
+            toast.success("Usuário editado com sucesso", {
+                position: toast.POSITION.TOP_CENTER
+            })
+        }).catch(function (error) { 
+            toast.error(error.response.data.error, {
+                position: "top-center",
+                autoClose: 5000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                theme: "light",
+            })
         })
+     
     }
+
     return (
         <>
             <Header />
@@ -58,7 +103,10 @@ export default function Root() {
                 Editar Usuário
             </h1>
             <Card className="max-w-lg my-5 right-0 relative mx-auto">
-                <form className="flex flex-col gap-4">
+                <form
+                    onSubmit={(e)=>handleSubmit(e)}
+                    className="flex flex-col gap-4"
+                >
                     <div>
                         <div className="mb-2 block">
                             <Label
@@ -70,8 +118,9 @@ export default function Root() {
                             id="name"
                             type="text"
                             placeholder="Joãozinho da Silva"
-                            required={true}
                             shadow={true}
+                            value={name}
+                            onChange={(e)=>setName(e.target.value)}
                         />
                     </div>
                     <div>
@@ -93,7 +142,7 @@ export default function Root() {
                         </LocalizationProvider>
                     </div>
 
-                    <Button type="submit" onClick={handleSubmit}>
+                    <Button type="submit">
                         Editar
                     </Button>
                 </form>

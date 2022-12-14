@@ -59,7 +59,7 @@ export default function Users() {
                                                     to={`/users/${user.id}/edit`}
                                                     className="block py-2 px-4 text-sm text-gray-700 hover:bg-gray-100 dark:text-gray-200 dark:hover:bg-gray-600 dark:hover:text-white"
                                                 >
-                                                    Edit
+                                                    Editar
                                                 </Link>
                                             </Dropdown.Item>
                                             <Dropdown.Item>
@@ -67,7 +67,7 @@ export default function Users() {
                                                     onClick={()=>setModalVisible(true)}
                                                     className="block py-2 px-4 text-sm text-red-600 hover:bg-gray-100 dark:text-gray-200 dark:hover:bg-gray-600 dark:hover:text-white"
                                                 >
-                                                    Delete
+                                                    Deletar
                                                 </button>
                                             </Dropdown.Item>
                                         </Dropdown>
