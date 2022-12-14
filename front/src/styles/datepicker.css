@@ -1,0 +1,7 @@
+.custom-datepicker input:focus{
+    box-shadow: none !important
+}
+
+.custom-datepicker .MuiInputBase-root{
+    border-radius: 0.5rem !important
+}
