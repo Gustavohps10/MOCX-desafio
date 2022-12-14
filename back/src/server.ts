@@ -21,6 +21,36 @@ app.get('/users', async (request, response) => {
     }
 })
 
+app.get('/users/:id', async (request, response) => {
+    const id = request.params.id
+
+    try {
+        const user = await prisma.user.findUniqueOrThrow({
+            where: {
+                id: id
+            }
+        })
+        return response.status(200).json(user)
+    } catch (error: any) {
+        if(error.code == "P2025"){
+            return response.status(400).json({
+                error: "Usuário inexistente"
+            })
+        }
+
+        if(error.code == "P2023"){
+            return response.status(400).json({
+                error: "Id de usuário inválido"
+            })
+        }
+
+        return response.status(500).json({
+            error: "Ocorreu um erro inesperado"
+        })
+        
+    }
+})
+
 app.post('/users', async (request, response) => {
     const body = request.body
     const name = body.name.trim()
