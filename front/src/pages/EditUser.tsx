@@ -20,7 +20,7 @@ export default function Root() {
     const [birthDate, setBirthDate] = React.useState<Dayjs | null>(null);
 
     function handleSubmit() {
-        toast.success("Usuário cadastrado com sucesso", {
+        toast.success("Usuário editado com sucesso", {
             position: toast.POSITION.TOP_CENTER
         })
 
@@ -70,21 +70,6 @@ export default function Root() {
                     <div>
                         <div className="mb-2 block">
                             <Label
-                                htmlFor="cpf"
-                                value="CPF"
-                            />
-                        </div>
-                        <TextInput
-                            id="cpf"
-                            type="text"
-                            placeholder="123.456.789-10"
-                            required={true}
-                            shadow={true}
-                        />
-                    </div>
-                    <div>
-                        <div className="mb-2 block">
-                            <Label
                                 htmlFor="birthDate"
                                 value="Data de Nascimento"
                             />
@@ -102,7 +87,7 @@ export default function Root() {
                     </div>
 
                     <Button type="submit" onClick={handleSubmit}>
-                        Cadastrar
+                        Editar
                     </Button>
                 </form>
             </Card>

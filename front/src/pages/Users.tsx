@@ -1,17 +1,18 @@
 import Header from "../components/Header";
 import { Button, Card, Dropdown } from "flowbite-react/lib/esm/components"
 import UserIconImage from "../assets/images/user-icon.jpg"
+import { Link } from "react-router-dom";
 
 export default function Users() {
     const fakeUsers = [
-        { name: "Name 1", cpf: "23423432422", birthDate: "2004-10-01T00:00:00.000" },
-        { name: "Name 2", cpf: "23423432426", birthDate: "2004-12-01T00:00:00.000" },
-        { name: "Name 3", cpf: "23423432427", birthDate: "2004-12-01T00:00:00.000" },
-        { name: "Name 4", cpf: "23423432428", birthDate: "2004-12-01T00:00:00.000" },
-        { name: "Name da Silva Sauro", cpf: "23423432422", birthDate: "2004-10-01T00:00:00.000" },
-        { name: "Name 2", cpf: "23423432426", birthDate: "2004-12-01T00:00:00.000" },
-        { name: "Name 3", cpf: "23423432427", birthDate: "2004-12-01T00:00:00.000" },
-        { name: "Name 4", cpf: "23423432428", birthDate: "2004-12-01T00:00:00.000" }
+        {id:"838092024609", name: "Name 1", cpf: "23423432422", birthDate: "2004-10-01T00:00:00.000" },
+        {id:"831092023409", name: "Name 2", cpf: "23423432426", birthDate: "2004-12-01T00:00:00.000" },
+        {id:"034092023450", name: "Name 3", cpf: "23423432427", birthDate: "2004-12-01T00:00:00.000" },
+        {id:"434092023409", name: "Name 4", cpf: "23423432428", birthDate: "2004-12-01T00:00:00.000" },
+        {id:"334092023409", name: "Name da Silva Sauro", cpf: "23423432422", birthDate: "2004-10-01T00:00:00.000" },
+        {id:"734092023409", name: "Name 2", cpf: "23423432426", birthDate: "2004-12-01T00:00:00.000" },
+        {id:"839052023409", name: "Name 3", cpf: "23423432427", birthDate: "2004-12-01T00:00:00.000" },
+        {id:"83409u023409", name: "Name 4", cpf: "23423432428", birthDate: "2004-12-01T00:00:00.000" }
     ]
 
     return (
@@ -22,7 +23,7 @@ export default function Users() {
                     fakeUsers.map((user) => {
                         return (
 
-                            <div className="max-w-sm">
+                            <div key={user.id} className="max-w-sm">
                                 <Card className="h-full">
                                     <div className="flex justify-end px-4 pt-4">
                                         <Dropdown
@@ -30,12 +31,12 @@ export default function Users() {
                                             label=""
                                         >
                                             <Dropdown.Item>
-                                                <a
-                                                    href="#"
+                                                <Link
+                                                    to={`/users/${user.id}/edit`}
                                                     className="block py-2 px-4 text-sm text-gray-700 hover:bg-gray-100 dark:text-gray-200 dark:hover:bg-gray-600 dark:hover:text-white"
                                                 >
                                                     Edit
-                                                </a>
+                                                </Link>
                                             </Dropdown.Item>
                                             <Dropdown.Item>
                                                 <a
