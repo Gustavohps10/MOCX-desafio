@@ -14,6 +14,6 @@ datasource db {
 model User {
   id        String   @id @default(auto()) @map("_id") @db.ObjectId
   name      String
-  cpf       String
+  cpf       String   @unique
   birthDate DateTime
 }
