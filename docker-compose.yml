@@ -11,9 +11,10 @@ services:
       MONGO_INITDB_DATABASE: ${DB_NAME}
       MONGO_INITDB_ROOT_USERNAME: ${DB_USER}
       MONGO_INITDB_ROOT_PASSWORD: ${DB_PASS}
-  api:
-    image: node:latest
-    container_name: api
+  back:
+    container_name: back
+    build: 
+      context: ./back
     restart: always
     env_file:
      - .env
@@ -21,10 +22,24 @@ services:
       - db
     ports:
       - ${SERVER_PORT}:${SERVER_PORT}
-    volumes:
-      - ./back:/usr/src/app
-    working_dir: /usr/src/app
-    command: yarn start
+    working_dir: /usr/src/back
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "10m"
+        max-file: "5"
+  front:
+    container_name: front
+    build:
+      context: ./front
+    restart: always
+    env_file:
+    - .env
+    depends_on:
+      - back
+    ports:
+      - ${WEB_PORT}:${WEB_PORT}
+    working_dir: /usr/src/front
     logging:
       driver: "json-file"
       options:
