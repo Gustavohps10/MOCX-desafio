@@ -57,6 +57,7 @@ import {FiUserPlus} from "react-icons/fi"
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import axios from "axios";
+import Footer from "../components/Footer";
 
 export default function Home() {
     const [birthDate, setBirthDate] = useState<Moment | null>(null);
@@ -191,6 +192,8 @@ export default function Home() {
                     </Button>
                 </form>
             </Card>
+
+            <Footer/>
 
         </>
     )

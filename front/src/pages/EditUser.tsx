@@ -1,5 +1,6 @@
 import { Button, Card, Label, TextInput } from "flowbite-react/lib/esm/components"
 import Header from "../components/Header"
+import Footer from "../components/Footer"
 import "../styles/main.css"
 import "../styles/datepicker.css"
 
@@ -187,7 +188,8 @@ export default function Root() {
                     </Button>
                 </form>
             </Card>
-
+            
+            <Footer/>
         </>
     )
 }

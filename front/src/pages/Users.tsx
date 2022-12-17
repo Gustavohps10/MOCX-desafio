@@ -7,6 +7,7 @@ import React, { useEffect, useState } from "react";
 import { FaUsers } from "react-icons/fa"
 import axios, { isCancel, AxiosError } from 'axios';
 import { toast, ToastContainer } from "react-toastify";
+import Footer from "../components/Footer";
 
 type User = {
     id: string,
@@ -85,7 +86,7 @@ export default function Users() {
 
             <h1 className="my-10 text-3xl flex items-center justify-center gap-4 font-bold text-gray-900 px-10 flex-wrap text-center">
                 <FaUsers fill="rgba(17,24,39)" />
-                Usuarios Cadastrados
+                Usuários Cadastrados
             </h1>
 
             <div id="users" className="grid sm:justify-center sm:grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-4 md:px-10 lg:px-20">
@@ -164,6 +165,8 @@ export default function Users() {
                     </Modal.Body>
                 </Modal>
             </React.Fragment>
+
+            <Footer/>
         </>
     )
 }
