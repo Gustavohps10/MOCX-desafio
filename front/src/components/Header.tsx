@@ -1,5 +1,7 @@
 import { Navbar } from "flowbite-react";
 import { Button } from "flowbite-react/lib/esm/components";
+import { FaUsers } from "react-icons/fa";
+import { FiUserPlus } from "react-icons/fi";
 import { Link } from "react-router-dom";
 
 export default function Header() {
@@ -20,22 +22,22 @@ export default function Header() {
                 </span>
             </Navbar.Brand>
             <div className="flex md:order-2">
-                <Button>
-                    Button
-                </Button>
+                
                 <Navbar.Toggle />
             </div>
             <Navbar.Collapse>
                 <Link
                     to="/"
-                    className="text-base"
+                    className="text-base hover:text-blue-700 flex items-center gap-2"
                 >
+                    <FiUserPlus fill="rgba(17,24,39)"/>
                     Cadastro
                 </Link>
                 <Link 
                     to="/users"
-                    className="text-base"
+                    className="text-base hover:text-blue-700 flex items-center gap-2"
                 >
+                    <FaUsers fill="rgba(17,24,39)" />
                     Usuários
                 </Link>  
             </Navbar.Collapse>

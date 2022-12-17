@@ -138,7 +138,7 @@ export default function Root() {
                 theme="light"
             />
 
-            <h1 className="my-10 text-3xl flex items-center justify-center gap-4 font-bold text-gray-900">
+            <h1 className="my-10 text-3xl flex items-center justify-center gap-4 font-bold text-gray-900 px-10 flex-wrap text-center">
                 <FaUserEdit fill="rgba(17,24,39)"/>
                 Editar Usuário
             </h1>
